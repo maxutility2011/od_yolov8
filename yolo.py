@@ -6,6 +6,8 @@ import argparse
 import os
 
 model = YOLO('yolov8n.pt')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = model.to(device).eval()
 
 parser = argparse.ArgumentParser(description='Small object detection with Yolov8.')
 parser.add_argument('--loglevel', type=str, default='INFO', help='Set the log level (e.g., DEBUG, INFO, WARNING, ERROR, CRITICAL)')
