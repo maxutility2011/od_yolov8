@@ -1,0 +1,8 @@
+{
+    "Ingest_frame_rate": "25",
+    "Reenc_params": {
+        "Video_encoder": "h264",
+        "Preset": "faster",
+        "Crf": "25"
+    }
+}
