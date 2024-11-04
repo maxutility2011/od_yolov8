@@ -7,7 +7,7 @@ import os
 
 model = YOLO('yolov8n.pt')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model = model.to(device).eval()
+model = model.to(device)
 
 parser = argparse.ArgumentParser(description='Small object detection with Yolov8.')
 parser.add_argument('--loglevel', type=str, default='INFO', help='Set the log level (e.g., DEBUG, INFO, WARNING, ERROR, CRITICAL)')
@@ -40,8 +40,8 @@ output_folder = args.output_folder
 os.makedirs(output_folder, exist_ok=True)
 
 for idx, img in enumerate(input_images):
-    input_img = cv2.resize(img, (1280, 1280))
-    results = model(input_img, conf=0.25)
+    #input_img = cv2.resize(img, (1280, 1280))
+    results = model.predict(input_img, imgsz=320)
     annotated_img = results[0].plot()
 
     # Display the result
@@ -51,6 +51,3 @@ for idx, img in enumerate(input_images):
 
     url = output_folder + "/image_" + ("%04d" % (idx+1)) + ".jpg"
     cv2.imwrite(url, annotated_img)
-
-    # If you want to save the result
-    #cv2.imwrite('output_image.jpg', annotated_img)
