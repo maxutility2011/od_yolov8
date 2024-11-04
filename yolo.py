@@ -41,7 +41,7 @@ os.makedirs(output_folder, exist_ok=True)
 
 for idx, img in enumerate(input_images):
     #input_img = cv2.resize(img, (1280, 1280))
-    results = model.predict(input_img, imgsz=320)
+    results = model.predict(img, imgsz=320)
     annotated_img = results[0].plot()
 
     # Display the result
