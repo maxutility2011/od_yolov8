@@ -8,8 +8,8 @@ sudo apt install python3
 - Install pip3 and python-venv:
 '''
 sudo apt update
-sudo apt install python3-pip
-apt install python3-venv
+sudo apt install python3-pip -y
+sudo apt install python3-venv
 '''
 - Create a Python virtual environment "streamer"
 '''
