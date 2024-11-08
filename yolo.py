@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import argparse
 import os
 
+print("Current working directory: ", os.getcwd())
+os.chdir("/home/streamer/bins/")
+print("New working directory: ", os.getcwd())
+
 model = YOLO('yolov8n.pt')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = model.to(device)
@@ -27,18 +31,19 @@ def read_images_from_folder(folder_path):
         if img is not None:
             images.append(img)
         else:
-            logging.error("Failed to load image: %s", file_path)
+            print("Failed to load image: ", file_path)
     
     return images
 
 input_images = read_images_from_folder(args.input_folder)
 if len(input_images) == 0:
-    logger.error("Failed to read images from %s", dirpath)
+    print("Failed to read images from: ", dirpath)
     exit(0)
 
 output_folder = args.output_folder
 os.makedirs(output_folder, exist_ok=True)
 
+print("Input images loaded. Starting Yolo inference...")
 for idx, img in enumerate(input_images):
     #input_img = cv2.resize(img, (320, 192))
     results = model.predict(img, imgsz=320)
@@ -51,3 +56,4 @@ for idx, img in enumerate(input_images):
 
     url = output_folder + "/image_" + ("%04d" % (idx+1)) + ".jpg"
     cv2.imwrite(url, annotated_img)
+    print("Wrote annotated image: ", url)
