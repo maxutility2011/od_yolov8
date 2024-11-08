@@ -10,8 +10,10 @@ os.chdir("/home/streamer/bins/")
 print("New working directory: ", os.getcwd())
 
 model = YOLO('yolov8n.pt')
+print("yolov8n.pt downloaded")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = model.to(device)
+print("reading arguments")
 
 parser = argparse.ArgumentParser(description='Small object detection with Yolov8.')
 parser.add_argument('--loglevel', type=str, default='INFO', help='Set the log level (e.g., DEBUG, INFO, WARNING, ERROR, CRITICAL)')
@@ -20,10 +22,11 @@ parser.add_argument('--input_folder', type=str, required=True, help='The top lev
 parser.add_argument('--output_folder', type=str, required=True, help='The output folder')
 
 args = parser.parse_args()
+print("arguments parsed")
 
 def read_images_from_folder(folder_path):
     images = []
-
+    print("read_images_from_folder")
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
         img = cv2.imread(file_path)
