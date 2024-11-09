@@ -3,8 +3,8 @@ input_image_dir="$3/inputs"
 mkdir $input_image_dir 2>/dev/null 
 
 # Configure ffmpeg image_converter log
-image_converter_log="$3/image_converter.log"
-export FFREPORT=file=$image_converter_log:level=32
+#image_converter_log="$3/image_converter.log"
+#export FFREPORT=file=$image_converter_log:level=32
 
 # Convert the input video ($1) to Yolo input images at the given frame rate ($2)
 input_images="$input_image_dir/image_%6d.png"
