@@ -57,6 +57,6 @@ for idx, img in enumerate(input_images):
     #plt.axis('off')
     #plt.show()
 
-    url = output_folder + "/image_" + ("%04d" % (idx+1)) + ".jpg"
+    url = output_folder + "/image_" + ("%06d" % (idx+1)) + ".jpg"
     cv2.imwrite(url, annotated_img)
     print("Wrote annotated image: ", url)
