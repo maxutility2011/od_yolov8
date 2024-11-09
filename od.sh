@@ -11,7 +11,7 @@ input_images="$input_image_dir/image_%6d.png"
 ffmpeg -i $1 -vf fps=$2 $input_images -report
 
 # Run Yolo inference (i.e., object detection on the input images)
-output_image_dir="$3/outputs/" # Output directory will be created by Yolo script, no need to mkdir
+output_image_dir="$3/outputs" # Output directory will be created by Yolo script, no need to mkdir
 yolo_log="$3/yolo.log"
 python3 /home/streamer/bins/yolo.py --input_folder=$input_image_dir --output_folder=$output_image_dir > $yolo_log
 
