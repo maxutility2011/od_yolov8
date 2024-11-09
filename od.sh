@@ -1,6 +1,8 @@
 # Creating input image subdirectory
-input_image_dir="$3/inputs"
-mkdir $input_image_dir 2>/dev/null 
+seg_dir="$3/$4"
+mkdir $seg_dir 2>/dev/null 
+input_image_dir="$seg_dir/inputs"
+mkdir $input_image_dir 2>/dev/null
 
 # Configure ffmpeg image_converter log
 #image_converter_log="$3/image_converter.log"
@@ -11,8 +13,8 @@ input_images="$input_image_dir/image_%6d.png"
 ffmpeg -i $1 -vf fps=$2 $input_images -report
 
 # Run Yolo inference (i.e., object detection on the input images)
-output_image_dir="$3/outputs" # Output directory will be created by Yolo script, no need to mkdir
-yolo_log="$3/yolo.log"
+output_image_dir="$seg_dir/outputs" # Output directory will be created by Yolo script, no need to mkdir
+yolo_log="$seg_dir/yolo.log"
 python3 /home/streamer/bins/yolo.py --input_folder=$input_image_dir --output_folder=$output_image_dir > $yolo_log
 
 # Re-encode the Yolo output images (annotated) to the given output video ($4) at the given frame rate ($2)
@@ -26,4 +28,4 @@ export FFREPORT=file=$reencoder_log:level=32
 # - an init segment
 # - an media data segment
 # TODO: The live jobs have the configuration for re-encoder (e.g., codec, preset, crf). We should use those values instead.
-ffmpeg -hide_banner -loglevel error -r $2 -i $output_images -vcodec libx264 -preset veryfast -crf 25 -movflags +frag_keyframe+empty_moov -f mp4 -y $4 -report
+ffmpeg -hide_banner -loglevel error -r $2 -i $output_images -vcodec libx264 -preset veryfast -crf 25 -movflags +frag_keyframe+empty_moov -f mp4 -y $5 -report
