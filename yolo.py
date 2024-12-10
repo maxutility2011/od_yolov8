@@ -4,6 +4,7 @@ import cv2
 import matplotlib.pyplot as plt
 import argparse
 import os
+from pathlib import Path
 
 print("Current working directory: ", os.getcwd())
 os.chdir("/home/streamer/bins/")
@@ -23,7 +24,7 @@ parser.add_argument('--output_folder', type=str, required=True, help='The output
 
 args = parser.parse_args()
 print("arguments parsed")
-
+'''
 def read_images_from_folder(folder_path):
     images = []
     print("read_images_from_folder")
@@ -36,6 +37,23 @@ def read_images_from_folder(folder_path):
         else:
             print("Failed to load image: ", file_path)
     
+    return images
+'''
+
+def read_images_from_folder(input_folder):
+    images = []
+    folder_path = Path(input_folder)
+    files = sorted(folder_path.iterdir())
+
+    for file in files:
+        image_file = os.path.join(input_folder, file)
+        if file.is_file():
+            img = cv2.imread(image_file)
+            if img is not None:
+                images.append(img)
+            else:
+                print("Failed to load image: ", file.name)
+
     return images
 
 input_images = read_images_from_folder(args.input_folder)
