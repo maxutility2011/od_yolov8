@@ -24,21 +24,6 @@ parser.add_argument('--output_folder', type=str, required=True, help='The output
 
 args = parser.parse_args()
 print("arguments parsed")
-'''
-def read_images_from_folder(folder_path):
-    images = []
-    print("read_images_from_folder")
-    for filename in os.listdir(folder_path):
-        file_path = os.path.join(folder_path, filename)
-        img = cv2.imread(file_path)
-
-        if img is not None:
-            images.append(img)
-        else:
-            print("Failed to load image: ", file_path)
-    
-    return images
-'''
 
 def read_images_from_folder(input_folder):
     images = []
