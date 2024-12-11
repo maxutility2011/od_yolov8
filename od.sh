@@ -29,3 +29,7 @@ output_images="$output_image_dir/image_%6d.jpg"
 # - an media data segment
 # TODO: The live jobs have the configuration for re-encoder (e.g., codec, preset, crf). We should use those values instead.
 ffmpeg -hide_banner -loglevel error -r $2 -i $output_images -vcodec libx264 -preset veryfast -crf 25 -movflags +frag_keyframe+empty_moov -f mp4 -y $5 -report
+
+# Delete intermediate files
+mkdir $input_image_dir 2>/dev/null 
+mkdir $output_image_dir 2>/dev/null 
