@@ -1,3 +1,11 @@
+# Parameters
+# 1. Input file path
+# 2. Frame rate
+# 3. Output directory
+# 4. Per-segment temporary directory
+# 5. Output filename
+# 6. SIDX timescale
+
 # Creating input image subdirectory
 seg_dir="$3/$4"
 mkdir $seg_dir 2>/dev/null 
@@ -28,7 +36,8 @@ output_images="$output_image_dir/image_%6d.jpg"
 # - an init segment
 # - an media data segment
 # TODO: The live jobs have the configuration for re-encoder (e.g., codec, preset, crf). We should use those values instead.
-ffmpeg -hide_banner -loglevel error -r $2 -i $output_images -vcodec libx264 -preset veryfast -crf 25 -movflags +frag_keyframe+empty_moov -f mp4 -y $5 -report
+# Example: ffmpeg -hide_banner -loglevel error -r 5 -i /tmp/output_2108d5f3-a590-4a3e-a3e6-4231c0ee076d/video_150k/seg_1/outputs/image_%6d.jpg -vcodec libx264 -preset veryfast -crf 25 -video_track_timescale 90000 -movflags +frag_keyframe+empty_moov -f mp4 -y 1.mp4
+ffmpeg -hide_banner -loglevel error -r $2 -i $output_images -vcodec libx264 -preset veryfast -crf 25 -video_track_timescale $6 -movflags +frag_keyframe+empty_moov -f mp4 -y $5 -report
 
 # Delete intermediate files
 mkdir $input_image_dir 2>/dev/null 

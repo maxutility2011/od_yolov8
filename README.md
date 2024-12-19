@@ -39,10 +39,10 @@ At least 100 GB of disk space is required to hold the packages, model files and 
 
 To run object detection on an input, run the following command,
 '''
-od.sh [input_filepath] [frame_rate] [output_directory] [temp_directory] [output_filepath]
+od.sh [input_filepath] [frame_rate] [output_directory] [temp_directory] [output_filename] [sidx_timescale]
 '''
 Please provide the path to the input video and the output video frame rate, e.g., 
 '''
-"od.sh /tmp/output_e1b704b0-95b9-494a-871d-173dae9b9145/video_150k/seg_1.merged 15 /tmp/output_e1b704b0-95b9-494a-871d-173dae9b9145/video_150k seg_1 seg_1.detected". 
+"od.sh /tmp/output_e1b704b0-95b9-494a-871d-173dae9b9145/video_150k/seg_1.merged 15 /tmp/output_e1b704b0-95b9-494a-871d-173dae9b9145/video_150k seg_1 seg_1.detected 90000". 
 '''
 The shell script will break the input video into a sequence of images with the given frame rate, run Yolov8 inference on the images and generate output images with the detected objects. Finally, it runs ffmpeg to combine the images into an output video. 
