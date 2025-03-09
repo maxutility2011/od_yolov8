@@ -40,5 +40,5 @@ output_images="$output_image_dir/image_%6d.jpg"
 ffmpeg -hide_banner -loglevel error -r $2 -i $output_images -vcodec $7 -preset $8 -crf $9 -video_track_timescale $6 -movflags +frag_keyframe+empty_moov -f mp4 -y $5 -report
 
 # Delete intermediate files
-mkdir $input_image_dir 2>/dev/null 
-mkdir $output_image_dir 2>/dev/null 
+rm $input_image_dir 2>/dev/null 
+rm $output_image_dir 2>/dev/null 
